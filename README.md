@@ -8,6 +8,8 @@
 * Rules of hooks
 * Examples of the useEffect
 
+  - [Slides available here](./w7d3.pdf)
+
 ## Pure Functions 🛡️
 
 Functions that does not modify the state of our app, and avoid producing any side-effects.
