@@ -16,7 +16,7 @@ Functions that does not modify the state of our app, and avoid producing any sid
 - Given the same input, the function returns the same output
 - It doesn't produce changes beyond its scope (side-effect)
 
-### Side-Effects 🙈
+## Side-Effects 🙈
 
 A secondary effect (an interaction with the outside of the function) when running a function:
 
@@ -105,7 +105,6 @@ Examples:
  👁️‍🗨️ [useEffect Intro Example](https://codesandbox.io/s/react-useeffect-intro-y8m93)
  👁️‍🗨️ [useEffect - Tweeter Character Count](https://codesandbox.io/s/useeffect-tweeter-character-count-uj3n3)
  👁️‍🗨️ [useEffect Usernames/count Example](https://codesandbox.io/s/nervous-hamilton-3ddlu)
- 👁️‍🗨️ [removing eventListener](https://codesandbox.io/s/handle-resize-ytggf)
 
 #### Fetching Data 🐕‍🦺
 
