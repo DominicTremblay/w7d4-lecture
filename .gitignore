@@ -5,3 +5,5 @@ window.js
 test.js
 total.js
 plan copy.md
+.env
+node_modules/
