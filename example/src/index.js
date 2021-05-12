@@ -8,7 +8,7 @@ import ExampleApi from './examples/ExampleApi';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ExampleApi />
+    <Example1 />
   </React.StrictMode>,
   document.getElementById('root')
 );
