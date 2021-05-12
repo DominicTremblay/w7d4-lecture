@@ -7,9 +7,9 @@ import Example2 from './examples/Example2';
 import ExampleApi from './examples/ExampleApi';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ExampleApi />
-  </React.StrictMode>,
+  // <React.StrictMode>
+    <Example1 />,
+  {/* </React.StrictMode>, */}
   document.getElementById('root')
 );
 
