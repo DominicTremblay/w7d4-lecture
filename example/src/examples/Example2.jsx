@@ -9,63 +9,46 @@ import './example2.css';
 // 5.1 Validate the tweet and display an errorMsg accordingly
 // 6. Create a side effect. Display the remaining characters in the title of the document
 
-const Example2 = ({ tweetSubmit }) => {
+const Example2 = () => {
   const MAX_COUNT = 10;
+
   const [text, setText] = useState('');
-  const [msg, setMsg] = useState('');
-  const [errMsg, setErrMsg] = useState('');
   const [counter, setCounter] = useState(MAX_COUNT);
+  const [err, setErr] = useState('');
 
   // Add an effect -> display the character's left in the document title
   // what's the effect of the different values of the dependency array
 
-  useEffect(() => {
-    document.title = `${counter} characters remaining`;
-  }, [counter]);
-
-  useEffect(() => {
-    if (errMsg) {
-      document.title = `${errMsg}`;
+  const validateTweet = (tweet) => {
+    if (tweet.length < 1) {
+      setErr('Please, enter a tweet');
+    } else if (tweet.length > MAX_COUNT) {
+      setErr(`Please, enter less than ${MAX_COUNT} characters`);
+    } else {
+      setErr('');
     }
-  }, [errMsg]);
-
-  const validateTweet = (content) => {
-    const errors = {
-      overLimit: 'Please write less than 140 chars!',
-      empty: 'Please provide a tweet!',
-    };
-
-    const error =
-      (content.length > MAX_COUNT && 'overLimit') ||
-      (content === '' && 'empty');
-
-    return errors[error];
   };
+
+  useEffect(() => {
+    setCounter(MAX_COUNT - text.length);
+    validateTweet(text);
+  }, [text]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const error = validateTweet(text);
-    if (!error) {
-      setMsg('Tweet Submitted!');
-      setErrMsg('');
-      setText('');
+    validateTweet(text);
+    if (!err) {
+      console.log('submitting tweet');
     } else {
-      setErrMsg(error);
-      setMsg('');
+      console.log(err);
     }
-  };
-
-  const handleKeyUp = (event) => {
-    setCounter(MAX_COUNT - text.length);
   };
 
   return (
     <section className="new-tweet">
       <header>
         <div id="error-container">
-          {errMsg && <h4>{errMsg}</h4>}
-          {msg && <h4>{msg}</h4>}
+          <h4>{err}</h4>
         </div>
       </header>
 
@@ -74,15 +57,11 @@ const Example2 = ({ tweetSubmit }) => {
           name="text"
           placeholder="What are you humming about?"
           value={text}
-          onChange={(evt) => setText(evt.target.value)}
-          onKeyUp={handleKeyUp}
+          onChange={(event) => setText(event.target.value)}
         />
         <footer>
           <input className="btn-new-tweet" type="submit" value="Tweet" />
-          <span
-            className="counter"
-            style={counter < 0 ? { color: 'red' } : { color: 'black' }}
-          >
+          <span className="counter" style={{ color: err ? 'red' : 'black' }}>
             {counter}
           </span>
         </footer>
