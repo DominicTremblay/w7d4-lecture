@@ -12,20 +12,57 @@ import './example2.css';
 const Example2 = () => {
   // Add an effect -> display the character's left in the document title
   // what's the effect of the different values of the dependency array
+  const MAX_COUNT = 10;
+  const [text, setText] = useState('');
+  const [counter, setCounter] = useState(MAX_COUNT);
+  const [errMsg, setErrMsg] = useState('');
+
+  const validateTweet = () => {
+    if (text.length < 1) {
+      setErrMsg('Please, enter a tweet!');
+    } else if (text.length > MAX_COUNT) {
+      setErrMsg(`Please, enter less than ${MAX_COUNT}`);
+    } else {
+      setErrMsg('');
+    }
+  };
+
+  useEffect(() => {
+    validateTweet();
+    setCounter(MAX_COUNT - text.length);
+  }, [text]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    validateTweet();
+    if (!errMsg) {
+      console.log('Posting Tweet!');
+    }
+  };
 
   return (
     <section className="new-tweet">
       <header>
         <div id="error-container">
-          <h4>''</h4>
+          <h4>{errMsg}</h4>
         </div>
       </header>
 
-      <form>
-        <textarea name="text" placeholder="What are you humming about?" />
+      <form onSubmit={handleSubmit}>
+        <textarea
+          name="text"
+          placeholder="What are you humming about?"
+          value={text}
+          onChange={(event) => setText(event.target.value)}
+        />
         <footer>
           <input className="btn-new-tweet" type="submit" value="Tweet" />
-          <span className="counter"></span>
+          <span
+            className="counter"
+            style={{ color: text.length > MAX_COUNT ? 'red' : 'black' }}
+          >
+            {counter}
+          </span>
         </footer>
       </form>
     </section>
